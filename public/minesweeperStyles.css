@@ -1,0 +1,62 @@
+body {
+  background-color: antiquewhite;
+}
+
+.board {
+  height: 600px;
+  width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgba(88, 140, 126);
+}
+
+.board div {
+  height: 60px;
+  width: 60px;
+  font-size: 25px;
+  border: 2px solid goldenrod;
+}
+
+.bomb {
+  background-color: rgb(236, 85, 64);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.opened {
+  background-color: rgb(250, 212, 179);
+  color: rgb(236, 85, 64);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#timerContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 70px;
+  width: 400px;
+  border: 1px solid blue;
+  border-radius: 20px;
+  font-size: 30px;
+}
+
+.gameOver {
+  background-color: red;
+}
+
+.restartButton {
+  font-size: larger;
+}
+
+#mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}

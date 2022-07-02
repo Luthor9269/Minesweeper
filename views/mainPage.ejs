@@ -1,0 +1,18 @@
+<%- include('./header'); -%>
+
+    <div id="mainContainer">  
+      <div id="logo">
+        <img src="/MinesweeperLogo.jpg" width="100" height="100" />
+      </div>
+  <h1>Welcome to MineSweeper</h1>
+  <h3>MineSweeper Rules</h3>
+  <div id="rules">
+    Try your luck at winning the game of Minesweeper. The board is divided into cells, with mines randomly distributed. To win, you need to open all the cells without a mine in it. The number on a cell shows the number of mines adjacent to it. Use this information to deduce and decide if there are mines on the adjacent squares. Hope for the best and click on the square to open it up and repeat the cycle 
+  </div>
+  <br>
+  <button id="gameButton"  onclick="goToGame()" class="btn btn-danger">Play Minesweeper</button>
+  <br>
+  <button id="gameButton"  onclick="goToRankings()" class="btn btn-danger" >Show Rankings</button>
+  </div>
+</body>
+</html>

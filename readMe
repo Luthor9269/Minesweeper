@@ -1,0 +1,174 @@
+
+//make the game in this script 
+//emoji 💣
+
+//global variables that will help us make the board, click and cheeckSquares functions
+let width = 10
+let mines = 20
+//this holds the information of each square , id,content,bomsAround to be used later 
+const boardItems = []
+//Creating an empty board and filling it with bombs and empty spaces 
+const createBoard = ()=>{
+  const board = document.querySelector('.board')
+  //creating two arrays and joinin them to form the elements in the board
+
+  const mineArray = Array(mines).fill('mine')
+  const emptyArray = Array(width*width-mines).fill('empty')
+  const gameArray = emptyArray.concat(mineArray)
+  //shuffles the array and gives us random placement each time we refresh
+  const shuffledArray = gameArray.sort(()=>Math.random()-0.5)
+
+  //creating the squares that will go into the board 
+  //this board only has 100 squares and doesn't use 2 for loops
+  //creatintg 100 squares with a for loop
+  for( let i=0;i<width*width;i+=1){
+    //creating a squre div
+    const square = document.createElement('div')
+    //setting the id of individual square equals i(0-100)
+    square.setAttribute('id', i)
+    //setting classes for each square
+    square.classList.add(`${shuffledArray[i]}`)
+    //for me to see the grid in html 
+    const squareInfo = {
+      id:i,
+      content:shuffledArray[i],
+      bombsAround: 0,
+    }
+    boardItems.push(squareInfo)
+    board.appendChild(square)
+
+  //make the logic to check for bombs around before we create the addEventListener
+
+
+
+    
+    //make function for click
+    //what happens when the square is clicked 
+    
+    //over here you check for the boms in surrounding area 
+    //create a function the check the squares eg. checkSquare
+    //when this function is run, each square is checked
+    square.addEventListener('click', ()=>{
+      click(i)
+    })
+    
+  }
+  //put it here so the elements are loaded first before this function checks for mine and passes me the information through boardItems
+  checkForMines()
+} 
+
+
+const click = (squareIndex)=>{
+  //we need to check if the square has a bomb or not 
+  const square = document.getElementById(`${squareIndex}`)
+  //if square has a mine, end the game
+  if(boardItems[squareIndex].content==='mine'){
+    console.log('game Over')
+  }
+  //if square has the class empty , display bombsAround and change color 
+  if(boardItems[squareIndex].content==='empty'){
+    if(boardItems[squareIndex].bombsAround>0){
+      square.innerText = boardItems[squareIndex].bombsAround
+      square.classList.add('opened')
+    }
+    //if square is empty and no bombsAround, just change color
+    if(boardItems[squareIndex].bombsAround===0){
+      square.classList.add('opened')
+    }
+  }
+  //adding incursion function
+  //check the surrounding 8 boxes 
+  let isLeftEdge = false
+  let isRightEdge = false
+  if(squareIndex===0 || squareIndex%width===0){
+      isLeftEdge = true
+    }else{isLeftEdge=false}
+  if(squareIndex%width===width-1){
+      isRightEdge = true
+    }else{isRightEdge=false}
+    //checking top left
+    if(squareIndex>10 && !isLeftEdge && boardItems[squareIndex-10-1].content !== 'mine' && boardItems[squareIndex-10-1].bombsAround ===0){
+      click(squareIndex-10-1)
+      return
+    }
+    //opening top 
+    console.log(boardItems[squareIndex-10].content)
+    if(boardItems[squareIndex-10].content !== 'mine' &&boardItems[squareIndex-10].bombsAround >0){
+      click(squareIndex-10)
+      return
+    }
+    //opening top right 
+    if(squareIndex>9 && !isRightEdge && boardItems[squareIndex-10+1].bombsAround !== 'mine'){
+      click(squareIndex-10+1)
+      return
+    }
+
+}
+
+const checkForMines = ()=>{
+  //what happens when the square is clicked
+  //check for bombs in surrounding area 
+  //opens up the boxes if no bombs are around them 
+  let isLeftEdge = false
+  let isRightEdge = false
+  
+  for(let i=0; i <boardItems.length;i+=1){
+    const id = boardItems[i].id
+    //logic to show isLeft/RightEdge
+    if(id===0 || id%width===0){
+      isLeftEdge = true
+    }else{isLeftEdge=false}
+    if(id%width===width-1){
+      isRightEdge = true
+    }else{isRightEdge=false}
+    //now i have to check around the square so 8 suqares
+    //topleft,top,topright,left,right,botleft,bot,botright
+
+    //topleft of square
+    if(id>10 && !isLeftEdge && boardItems[i-10-1].content === 'mine'){
+      boardItems[i].bombsAround +=1
+    }
+    //top of square
+    if(id>9 && boardItems[i-10].content==='mine'){
+      boardItems[i].bombsAround +=1
+    }
+    //topRight of square
+    if(id>9 && !isRightEdge && boardItems[i-10+1].content==='mine'){
+      boardItems[i].bombsAround +=1
+    }
+    //left of square
+    if(!isLeftEdge && boardItems[i-1].content==='mine'){
+      boardItems[i].bombsAround +=1
+    }
+    //right of square
+    if(!isRightEdge && boardItems[i+1].content==='mine'){
+      boardItems[i].bombsAround +=1
+    }
+    //botLeft of square
+    if(!isLeftEdge && id<90 && boardItems[i+10-1].content==='mine'){
+      boardItems[i].bombsAround +=1
+    }
+    //bot of square
+    if(id<90 && boardItems[i+10].content==='mine'){
+      boardItems[i].bombsAround +=1
+    }
+    //botRight of square
+    if(!isRightEdge && id<90 && boardItems[i+10+1].content==='mine'){
+      boardItems[i].bombsAround +=1
+    }
+    //have to move this function to another area if not here it will display all the elements in the page when it runs checkformines
+    // const square = document.getElementById(`${i}`)
+    // square.innerText = boardItems[i].bombsAround
+    // if(boardItems[i].content==='mine'){
+    //   square.innerText = '💣'
+    // }
+  }
+}
+createBoard()
+
+
+//things left do to
+//click function
+//check function
+//recursion
+//clean up the code

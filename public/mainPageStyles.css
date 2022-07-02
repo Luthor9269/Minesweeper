@@ -1,0 +1,19 @@
+body {
+  background-color: antiquewhite;
+}
+
+#mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+#rules {
+  display: flex;
+  align-content: center;
+  border: 2px solid chocolate;
+  font-size: 30px;
+  width: 700px;
+}
