@@ -1,5 +1,5 @@
 # Minesweeper
-A minesweeper clone. Using recursion as the main game logic it recreates the functionalities of the game.
+A minesweeper clone. Using recursion as the main game logic it recreates the functionalities of minesweeper.
 
 Functionalties:
 User SIGNUP/LOGIN
